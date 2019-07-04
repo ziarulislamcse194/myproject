@@ -1,0 +1,36 @@
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using StockManagementSystem.Models;
+using StockManagementSystem.Repository;
+
+namespace StockManagementSystem.BLL
+{
+    public class CategoryManager
+    {
+        CategoryRepository _categoryRepository = new CategoryRepository();
+
+        public int Insert(Category categoryObj)
+        {
+            return _categoryRepository.Insert(categoryObj);
+        }
+
+        public DataTable ShowCategory()
+        {
+            return _categoryRepository.ShowCategory();
+        }
+
+        public int Delete(Category categoryObj)
+        {
+            return _categoryRepository.Delete(categoryObj);
+        }
+
+        public int Update(Category categoryObj)
+        {
+            return _categoryRepository.Update(categoryObj);
+        }
+    }
+}

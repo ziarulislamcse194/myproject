@@ -1,0 +1,36 @@
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using StockManagementSystem.Models;
+using StockManagementSystem.Repository;
+
+namespace StockManagementSystem.BLL
+{
+    public class CompanyManager
+    {
+        CompanyRepository _companyRepository = new CompanyRepository();
+
+        public int Insert(Company companyObj)
+        {
+            return _companyRepository.Insert(companyObj);
+        }
+
+        public DataTable ShowCompany()
+        {
+            return _companyRepository.ShowCompany();
+        }
+
+        public int Delete(Company companyObj)
+        {
+            return _companyRepository.Delete(companyObj);
+        }
+
+        public int Update(Company companyObj)
+        {
+            return _companyRepository.Update(companyObj);
+        }
+    }
+}

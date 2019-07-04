@@ -1,0 +1,31 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Data;
+using System.Text;
+using System.Threading.Tasks;
+using StockManagementSystem.Models;
+using StockManagementSystem.Repository;
+
+namespace StockManagementSystem.BLL
+{
+    public class ItemManager
+    {
+        ItemRepository _itemRepository = new ItemRepository();
+
+        public int Insert(Item itemObj)
+        {
+            return _itemRepository.Insert(itemObj);
+        }
+
+        public DataTable LoadCategory()
+        {
+            return _itemRepository.LoadCategory();
+        }
+
+        public DataTable LoadCompany()
+        {
+            return _itemRepository.LoadCompany();
+        }
+    }
+}
