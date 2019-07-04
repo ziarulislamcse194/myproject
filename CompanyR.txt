@@ -1,0 +1,98 @@
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using StockManagementSystem.Models;
+
+namespace StockManagementSystem.Repository
+{
+    public class CompanyRepository
+    {
+        private string connectionString = @"Server=DESKTOP-L03CHE4; Database=StockManagement; Integrated Security=True";
+        private SqlConnection sqlConnection;
+
+        private string commandString;
+        private SqlCommand sqlCommand;
+
+
+        public int Insert(Company companyObj)
+        {
+            sqlConnection = new SqlConnection(connectionString);
+
+            sqlConnection.Open();
+
+            commandString = @"INSERT INTO Companys (Name) VALUES ('" + companyObj.Name + "')";
+            sqlCommand = new SqlCommand(commandString, sqlConnection);
+            int isExecuted;
+            isExecuted = sqlCommand.ExecuteNonQuery();
+            if (isExecuted > 0)
+            {
+                MessageBox.Show("Data Saved!!");
+            }
+            else
+            {
+                MessageBox.Show("Not Saved!!");
+            }
+
+            sqlConnection.Close();
+            return isExecuted;
+        }
+
+        public DataTable ShowCompany()
+        {
+            sqlConnection = new SqlConnection(connectionString);
+            sqlConnection.Open();
+            commandString = @"SELECT * FROM Companys";
+            sqlCommand = new SqlCommand(commandString, sqlConnection);
+
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
+            DataTable dataTable = new DataTable();
+            sqlDataAdapter.Fill(dataTable);
+            sqlConnection.Close();
+            return dataTable;
+        }
+
+        public int Delete(Company companyObj)
+        {
+            sqlConnection = new SqlConnection(connectionString);
+            sqlConnection.Open();
+            commandString = @"DELETE FROM Companys WHERE ID = '" + companyObj.ID + "'";
+            sqlCommand = new SqlCommand(commandString, sqlConnection);
+
+            int isDeleted;
+            isDeleted = sqlCommand.ExecuteNonQuery();
+            if (isDeleted > 0)
+            {
+                MessageBox.Show("Delete Sucessfull!");
+            }
+            else
+            {
+                MessageBox.Show("Delete Failed!");
+            }
+
+            //
+            sqlConnection.Close();
+            return isDeleted;
+        }
+
+        public int Update(Company companyObj)
+        {
+            sqlConnection = new SqlConnection(connectionString);
+            sqlConnection.Open();
+
+            commandString = @"UPDATE Companys SET Name='" + companyObj.Name + "' WHERE ID='" + companyObj.ID + "'";
+            sqlCommand.CommandText = commandString;
+            sqlCommand.Connection = sqlConnection;
+
+            int isExecuted;
+            isExecuted = sqlCommand.ExecuteNonQuery();
+
+            sqlConnection.Close();
+            return isExecuted;
+        }
+    }
+}
